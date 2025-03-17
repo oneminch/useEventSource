@@ -23,7 +23,7 @@
 		"vue": "^3.0.0"
 	},
 	"devDependencies": {
-		"typescript": "^5.6.3"
+		"typescript": "^5.8.2"
 	},
 	"repository": "github:oneminch/useEventSource"
 }
