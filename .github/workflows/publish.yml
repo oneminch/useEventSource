@@ -16,7 +16,16 @@ jobs:
         with:
           node-version: "20"
       - run: npm install
+      
       - run: npm run build
-      - run: npm publish
+
+      - name: Bump minor version
+        run: npm version minor -m "ci: bump minor version to %s"
+        
+      - name: Authenticate to npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        
+      - name: Publish package
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
