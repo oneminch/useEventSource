@@ -20,7 +20,7 @@ jobs:
       - run: npm run build
 
       - name: Bump minor version
-        run: npm version minor -m "ci: bump minor version to %s"
+        run: npm version minor
         
       - name: Authenticate to npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
