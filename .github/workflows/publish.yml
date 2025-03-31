@@ -18,6 +18,11 @@ jobs:
       - run: npm install
       
       - run: npm run build
+      
+      - name: Set up Git user
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
 
       - name: Bump minor version
         run: npm version minor
