@@ -1,3 +1,4 @@
+# .github/workflows/publish.yml
 name: Publish Package
 
 on:
@@ -8,28 +9,28 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      
+      - run: npm run build
+      
+      - name: Set up Git user
+        run: |
+          git config --global user.email "27751688+oneminch@users.noreply.github.com"
+          git config --global user.name "Dawit"
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Commit changes
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git commit -am "chore: commit changes before version bump"
-
-    - name: Push changes
-      env:
-        ACTIONS_PAT: ${{ secrets.GH_PAT }}
-      run: |
-        git remote set-url origin https://x-access-token:${{ secrets.ACTIONS_PAT }}@github.com/${{ github.repository }}
-        git push origin HEAD:main
+      - name: Bump minor version
+        run: npm version minor
+        
+      - name: Authenticate to npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        
+      - name: Publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
