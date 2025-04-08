@@ -23,7 +23,7 @@ jobs:
           git config --global user.email "27751688+oneminch@users.noreply.github.com"
           git config --global user.name "Dawit"
           
-      - name: Determine version increment
+      - name: Determine and bump version
         id: version
         run: |
           if git log -1 --pretty=%B | grep -q '^chore(deps):'; then
@@ -31,16 +31,9 @@ jobs:
           else
             echo "increment=minor" >> $GITHUB_ENV
           fi
-
-      - name: Bump version
-        run: npm version ${{ env.increment }}
-        
-      - name: Authenticate to npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-        
-      - name: Check and bump version
-        id: check-version
-        run: |
+          git add .
+          git commit -m "chore: commit changes before version bump"
+          git push
           VERSION=$(node -p "require('./package.json').version")
           if npm info @minch/use-event-source@$VERSION > /dev/null 2>&1; then
             echo "version_exists=true" >> $GITHUB_ENV
@@ -48,7 +41,7 @@ jobs:
             npm version ${{ env.increment }}
             echo "version_exists=false" >> $GITHUB_ENV
           fi
-
+        
       - name: Authenticate to npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
