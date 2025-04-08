@@ -1,4 +1,3 @@
-# .github/workflows/publish.yml
 name: Publish Package
 
 on:
@@ -28,13 +27,13 @@ jobs:
         id: version
         run: |
           if git log -1 --pretty=%B | grep -q '^chore(deps):'; then
-            echo "patch" >> $GITHUB_ENV
+            echo "increment=patch" >> $GITHUB_ENV
           else
-            echo "minor" >> $GITHUB_ENV
+            echo "increment=minor" >> $GITHUB_ENV
           fi
 
       - name: Bump version
-        run: npm version ${{ env.version }}
+        run: npm version ${{ env.increment }}
         
       - name: Authenticate to npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
