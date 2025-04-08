@@ -38,16 +38,20 @@ jobs:
       - name: Authenticate to npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
         
-      - name: Check if version exists
+      - name: Check and bump version
         id: check-version
         run: |
           VERSION=$(node -p "require('./package.json').version")
           if npm info @minch/use-event-source@$VERSION > /dev/null 2>&1; then
             echo "version_exists=true" >> $GITHUB_ENV
           else
+            npm version ${{ env.increment }}
             echo "version_exists=false" >> $GITHUB_ENV
           fi
-        
+
+      - name: Authenticate to npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       - name: Publish package
         if: env.version_exists == 'false'
         run: npm publish
