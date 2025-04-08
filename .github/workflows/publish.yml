@@ -23,14 +23,34 @@ jobs:
         run: |
           git config --global user.email "27751688+oneminch@users.noreply.github.com"
           git config --global user.name "Dawit"
+          
+      - name: Determine version increment
+        id: version
+        run: |
+          if git log -1 --pretty=%B | grep -q '^chore(deps):'; then
+            echo "patch" >> $GITHUB_ENV
+          else
+            echo "minor" >> $GITHUB_ENV
+          fi
 
-      - name: Bump minor version
-        run: npm version minor
+      - name: Bump version
+        run: npm version ${{ env.version }}
         
       - name: Authenticate to npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
         
+      - name: Check if version exists
+        id: check-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm info @minch/use-event-source@$VERSION > /dev/null 2>&1; then
+            echo "version_exists=true" >> $GITHUB_ENV
+          else
+            echo "version_exists=false" >> $GITHUB_ENV
+          fi
+        
       - name: Publish package
+        if: env.version_exists == 'false'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
