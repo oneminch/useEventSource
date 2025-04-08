@@ -1,4 +1,4 @@
-import { ref, Ref, onMounted, onUnmounted } from "vue";
+import { ref, type Ref, onMounted, onUnmounted } from "vue";
 
 interface ComposableReturnType {
   eventData: Ref<any>;
