@@ -1,29 +1,32 @@
 {
-	"name": "@minch/use-event-source",
-	"version": "1.1.0",
-	"description": "A Vue composable for simplifying Server-Sent Events.",
-	"homepage": "https://github.com/oneminch/useEventSource/#readme",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"scripts": {
-		"build": "tsc",
-		"prepublishOnly": "npm run build"
-	},
-	"keywords": [
-		"nuxt",
-		"vue",
-		"composable",
-		"typescript",
-		"server-sent-events"
-	],
-	"author": "Dawit (@oneminch)",
-	"license": "MIT",
-	"peerDependencies": {
-		"nuxt": "^3.0.0",
-		"vue": "^3.0.0"
-	},
-	"devDependencies": {
-		"typescript": "^5.8.2"
-	},
-	"repository": "github:oneminch/useEventSource"
+  "name": "@minch/use-event-source",
+  "version": "1.2.0",
+  "description": "A Vue composable for simplifying Server-Sent Events.",
+  "homepage": "https://github.com/oneminch/useEventSource/#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nuxt",
+    "vue",
+    "composable",
+    "typescript",
+    "server-sent-events"
+  ],
+  "author": "Dawit (@oneminch)",
+  "license": "MIT",
+  "peerDependencies": {
+    "nuxt": "^3.0.0",
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  },
+  "repository": "github:oneminch/useEventSource"
 }
