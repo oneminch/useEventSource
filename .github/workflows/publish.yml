@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -23,53 +20,33 @@ jobs:
 
       - run: npm install
 
-      - run: npm run build
-
-      - name: Set up Git user
-        run: |
-          git config --global user.email "27751688+oneminch@users.noreply.github.com"
-          git config --global user.name "Dawit"
-
-      - name: Check if version bump is needed
-        id: version-check
+      - name: Check if publish is needed
+        id: publish-check
         run: |
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           PUBLISHED_VERSION=$(npm view @minch/use-event-source version 2>/dev/null || echo "0.0.0")
+
           echo "Current version: $CURRENT_VERSION"
           echo "Published version: $PUBLISHED_VERSION"
 
           if [ "$CURRENT_VERSION" != "$PUBLISHED_VERSION" ]; then
-            echo "Version bump needed: $CURRENT_VERSION vs $PUBLISHED_VERSION"
-            echo "needs-publish=true" >> $GITHUB_OUTPUT
+            echo "New version detected, publishing is needed"
+            echo "should-publish=true" >> $GITHUB_OUTPUT
           else
-            echo "Version already published, bumping minor version"
-            echo "needs-bump=true" >> $GITHUB_OUTPUT
-            echo "needs-publish=true" >> $GITHUB_OUTPUT
+            echo "Version $CURRENT_VERSION already published, skipping"
+            echo "should-publish=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Bump version if needed
-        if: steps.version-check.outputs.needs-bump == 'true'
-        run: |
-          npm version minor --no-git-tag-version
-          NEW_VERSION=$(node -p "require('./package.json').version")
-          echo "Bumped to version: $NEW_VERSION"
-
-      - name: Commit and push version changes
-        if: steps.version-check.outputs.needs-bump == 'true'
-        run: |
-          git add package.json
-          git commit -m "chore: bump version to $(node -p "require('./package.json').version") [skip ci]"
-          git push
-
-      - name: Create Git tag
-        if: steps.version-check.outputs.needs-publish == 'true'
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          git tag "v$VERSION"
-          git push origin "v$VERSION"
+      - name: Build package
+        if: steps.publish-check.outputs.should-publish == 'true'
+        run: npm run build
 
       - name: Publish to npm
-        if: steps.version-check.outputs.needs-publish == 'true'
+        if: steps.publish-check.outputs.should-publish == 'true'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Skip publishing
+        if: steps.publish-check.outputs.should-publish == 'false'
+        run: echo "No new version to publish"
