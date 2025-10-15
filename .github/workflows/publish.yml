@@ -13,6 +13,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    publish: Publish
     steps:
       - uses: actions/checkout@v4
 
