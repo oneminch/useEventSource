@@ -48,6 +48,8 @@ jobs:
       - name: Publish to npm
         if: steps.publish-check.outputs.should-publish == 'true'
         run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Skip publishing
         if: steps.publish-check.outputs.should-publish == 'false'
