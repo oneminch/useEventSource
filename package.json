@@ -1,6 +1,6 @@
 {
   "name": "@minch/use-event-source",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A Vue composable for simplifying Server-Sent Events.",
   "homepage": "https://github.com/oneminch/useEventSource/#readme",
   "main": "dist/index.js",
@@ -21,6 +21,9 @@
   ],
   "author": "Dawit (@oneminch)",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "nuxt": "^3.0.0",
     "vue": "^3.0.0"
