@@ -3,11 +3,12 @@ name: Publish Package
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 permissions:
   contents: read
+  id-token: read
 
 jobs:
   publish:
@@ -21,35 +22,10 @@ jobs:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
-      - run: npm install
-
-      - name: Check if publish is needed
-        id: publish-check
-        run: |
-          CURRENT_VERSION=$(node -p "require('./package.json').version")
-          PUBLISHED_VERSION=$(npm view @minch/use-event-source version 2>/dev/null || echo "0.0.0")
-
-          echo "Current version: $CURRENT_VERSION"
-          echo "Published version: $PUBLISHED_VERSION"
-
-          if [ "$CURRENT_VERSION" != "$PUBLISHED_VERSION" ]; then
-            echo "New version detected, publishing is needed"
-            echo "should-publish=true" >> $GITHUB_OUTPUT
-          else
-            echo "Version $CURRENT_VERSION already published, skipping"
-            echo "should-publish=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Build package
-        if: steps.publish-check.outputs.should-publish == 'true'
-        run: npm run build
+      - name: Install dependencies
+        run: npm install
 
       - name: Publish to npm
-        if: steps.publish-check.outputs.should-publish == 'true'
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Skip publishing
-        if: steps.publish-check.outputs.should-publish == 'false'
-        run: echo "No new version to publish"
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

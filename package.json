@@ -1,6 +1,6 @@
 {
   "name": "@minch/use-event-source",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "A Vue composable for simplifying Server-Sent Events.",
   "homepage": "https://github.com/oneminch/useEventSource/#readme",
   "main": "dist/index.js",
