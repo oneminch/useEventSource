@@ -1,6 +1,6 @@
 {
   "name": "@minch/use-event-source",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "A Vue composable for simplifying Server-Sent Events.",
   "homepage": "https://github.com/oneminch/useEventSource/#readme",
   "main": "dist/index.js",
@@ -19,7 +19,10 @@
     "typescript",
     "server-sent-events"
   ],
-  "author": "Dawit (@oneminch)",
+  "author": {
+    "name": "Dawit",
+    "url": "https://bsky.app/profile/minch.dev"
+  },
   "license": "MIT",
   "publishConfig": {
     "access": "public"
