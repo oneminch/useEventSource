@@ -1,6 +1,6 @@
 {
   "name": "@minch/use-event-source",
-  "version": "1.2.18",
+  "version": "1.2.19",
   "description": "A Vue composable for simplifying Server-Sent Events.",
   "homepage": "https://github.com/oneminch/useEventSource/#readme",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
     "vue": "^3.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.8.2"
+    "typescript": "^5.9.3"
   },
   "repository": "github:oneminch/useEventSource"
 }
