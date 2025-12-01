@@ -7,4 +7,4 @@ on:
 
 jobs:
   publish:
-    uses: oneminch/workflows/.github/workflows/publish.yml@v1
+    uses: oneminch/workflows/.github/workflows/npm-publish.yml@v1
