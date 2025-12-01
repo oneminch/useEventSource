@@ -13,9 +13,9 @@
     ".": "./dist/index.mjs",
     "./package.json": "./package.json"
   },
-  "bugs": "https://github.com/oneminch/useEventSource/issues",
-  "homepage": "https://github.com/oneminch/useEventSource/#readme",
-  "repository": "github:oneminch/useEventSource",
+  "bugs": "https://github.com/oneminch/use-event-source/issues",
+  "homepage": "https://github.com/oneminch/use-event-source/#readme",
+  "repository": "github:oneminch/use-event-source",
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
