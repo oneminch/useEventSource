@@ -4,26 +4,26 @@ packages:
 
 catalogs:
   cli:
-    "@antfu/eslint-config": ^6.2.0
-    "@antfu/ni": ^27.0.1
+    '@antfu/eslint-config': ^6.2.0
+    '@antfu/ni': ^27.0.1
     bumpp: ^10.3.2
     eslint: ^9.39.1
     tsdown: ^0.16.8
     typescript: ^5.9.3
     vite: ^7.2.6
   inlined:
-    "@antfu/utils": ^9.3.0
+    '@antfu/utils': ^9.3.0
   playground:
     nuxt: ^4.2.1
     vue: ^3.5.25
     vue-router: ^4.6.3
   types:
-    "@types/node": ^24.10.1
+    '@types/node': ^24.10.1
 
 ignoreWorkspaceRootCheck: true
 
 onlyBuiltDependencies:
-  - "@parcel/watcher"
+  - '@parcel/watcher'
   - esbuild
 
 shellEmulator: true
