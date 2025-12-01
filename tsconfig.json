@@ -1,22 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "ESNext",
+    "lib": ["ESNext"],
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "allowJs": true,
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
     "strict": true,
-    "declaration": true,
-    "skipLibCheck": true,
-    "baseUrl": ".",
-    "outDir": "./dist"
-    // "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
-    // "sourceMap": false,
-    // "paths": {
-    //   "~/*": ["./*"],
-    //   "@/*": ["./*"]
-    // }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+    "strictNullChecks": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
+  }
 }

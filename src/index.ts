@@ -11,9 +11,11 @@ export const useEventSource = (
   url: string,
   initialValue?: any
 ): ComposableReturnType => {
+  type EventData =  typeof initialValue extends undefined | null ? typeof initialValue : any;
+
   const eventSrc = ref<EventSource | null>(null);
-  const eventData = ref<any>(initialValue || null);
-  const isStopped = ref(false);
+  const eventData = ref<EventData>(initialValue || null);
+  const isStopped = ref(true);
 
   const createEventSource = () => {
     if (eventSrc.value) return;

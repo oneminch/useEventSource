@@ -1,17 +1,47 @@
 {
   "name": "@minch/use-event-source",
-  "version": "1.2.19",
+  "version": "1.2.20",
   "description": "A Vue composable for simplifying Server-Sent Events.",
-  "homepage": "https://github.com/oneminch/useEventSource/#readme",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build"
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
   },
+  "bugs": "https://github.com/oneminch/useEventSource/issues",
+  "homepage": "https://github.com/oneminch/useEventSource/#readme",
+  "repository": "github:oneminch/useEventSource",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "dev:play": "pnpm --filter ./.playground run dev",
+    "lint": "eslint",
+    "prepublishOnly": "nr build",
+    "release": "bumpp",
+    "typecheck": "tsc",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:cli",
+    "@antfu/ni": "catalog:cli",
+    "@antfu/utils": "catalog:inlined",
+    "@types/node": "catalog:types",
+    "bumpp": "catalog:cli",
+    "eslint": "catalog:cli",
+    "tsdown": "catalog:cli",
+    "typescript": "catalog:cli",
+    "vite": "catalog:cli"
+  },
+  "peerDependencies": {
+    "nuxt": "catalog:peer",
+    "vue": "catalog:peer"
+  },
+  "packageManager": "pnpm@10.24.0",
   "keywords": [
     "nuxt",
     "vue",
@@ -27,12 +57,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
-    "nuxt": "^3.0.0",
-    "vue": "^3.0.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.3"
-  },
-  "repository": "github:oneminch/useEventSource"
+  "sideEffects": false
 }
