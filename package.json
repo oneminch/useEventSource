@@ -37,8 +37,8 @@
     "vite": "catalog:cli"
   },
   "peerDependencies": {
-    "nuxt": "catalog:peer",
-    "vue": "catalog:peer"
+    "nuxt": "^3.0.0",
+    "vue": "^3.0.0"
   },
   "packageManager": "pnpm@10.24.0",
   "keywords": [
